@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Use — Cheatify</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f7f6f3;
+    --surface: #ffffff;
+    --ink: #1a1917;
+    --ink-2: #5a5753;
+    --ink-3: #9c9895;
+    --accent: oklch(52% 0.18 260);
+    --accent-light: oklch(96% 0.04 260);
+    --border: #e8e6e1;
+    --tag-bg: oklch(96% 0.04 260);
+    --tag-ink: oklch(40% 0.16 260);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 32px 0 28px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .header-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .logo-mark {
+    width: 36px;
+    height: 36px;
+    background: var(--accent);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .logo-mark svg { width: 18px; height: 18px; }
+
+  .header-text h1 {
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+
+  .header-text p {
+    font-size: 12px;
+    color: var(--ink-3);
+    font-family: 'DM Mono', monospace;
+    margin-top: 2px;
+  }
+
+  /* ── LAYOUT ── */
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 48px 32px 96px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    margin-bottom: 48px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--tag-ink);
+    background: var(--tag-bg);
+    padding: 4px 10px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .hero h2 {
+    font-size: 36px;
+    font-weight: 300;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+
+  .hero h2 strong {
+    font-weight: 600;
+  }
+
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .hero-meta span {
+    font-size: 13px;
+    color: var(--ink-3);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .pill {
+    background: #e8f5e9;
+    color: #2e7d32;
+    font-size: 11px;
+    font-weight: 500;
+    font-family: 'DM Mono', monospace;
+    padding: 4px 10px;
+    border-radius: 100px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  /* ── TABLE OF CONTENTS ── */
+  .toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 48px;
+  }
+
+  .toc-title {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-3);
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 16px;
+  }
+
+  .toc-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 24px;
+  }
+
+  .toc-list li a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13.5px;
+    color: var(--ink-2);
+    text-decoration: none;
+    padding: 5px 0;
+    transition: color 0.15s;
+  }
+
+  .toc-list li a:hover { color: var(--accent); }
+
+  .toc-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-3);
+    min-width: 20px;
+  }
+
+  /* ── SECTIONS ── */
+  .section {
+    margin-bottom: 40px;
+    scroll-margin-top: 100px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-3);
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+
+  .section-body {
+    padding-left: 34px;
+  }
+
+  .section-body p {
+    font-size: 15px;
+    color: var(--ink-2);
+    line-height: 1.75;
+    text-wrap: pretty;
+    margin-bottom: 16px;
+  }
+
+  .section-body p:last-child { margin-bottom: 0; }
+
+  /* ── HIGHLIGHT CARD ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-bottom: 16px;
+  }
+
+  .card-title {
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-3);
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 12px;
+  }
+
+  /* ── LIST STYLES ── */
+  .clean-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .clean-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14.5px;
+    color: var(--ink-2);
+    line-height: 1.55;
+  }
+
+  .clean-list li::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-top: 8px;
+    flex-shrink: 0;
+  }
+
+  .check-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .check-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14.5px;
+    color: var(--ink-2);
+    line-height: 1.55;
+  }
+
+  .check-list li::before {
+    content: '✓';
+    font-size: 12px;
+    color: #2e7d32;
+    font-weight: 700;
+    margin-top: 2px;
+    flex-shrink: 0;
+    width: 16px;
+  }
+
+  .cross-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .cross-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14.5px;
+    color: var(--ink-2);
+    line-height: 1.55;
+  }
+
+  .cross-list li::before {
+    content: '×';
+    font-size: 14px;
+    color: #c62828;
+    font-weight: 500;
+    margin-top: 0px;
+    flex-shrink: 0;
+    width: 16px;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 40px 0;
+  }
+
+  /* ── CONTACT BLOCK ── */
+  .contact-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .contact-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--accent-light);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .contact-icon svg { color: var(--accent); }
+
+  .contact-text h4 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .contact-text p {
+    font-size: 13px;
+    color: var(--ink-2);
+  }
+
+  .contact-text a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 32px;
+    text-align: center;
+  }
+
+  footer p {
+    font-size: 12px;
+    color: var(--ink-3);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 36px 32px;
+  }
+
+  .footer-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .footer-brand p:first-child {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .footer-brand p:last-child {
+    font-size: 12px;
+    color: var(--ink-3);
+  }
+
+  .footer-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+    color: var(--ink-2);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .footer-links a:hover { color: var(--accent); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .page { padding: 32px 20px 72px; }
+    .header-inner { padding: 0 20px; }
+    .hero h2 { font-size: 28px; }
+    .toc-list { grid-template-columns: 1fr; }
+    .contact-card { flex-direction: column; align-items: flex-start; }
+    footer { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="header-inner" style="text-decoration:none;color:inherit;">
+    <div class="logo-mark">
+      <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="2" width="14" height="3" rx="1.5" fill="white"/>
+        <rect x="2" y="7.5" width="9" height="3" rx="1.5" fill="white" opacity="0.7"/>
+        <rect x="2" y="13" width="11" height="3" rx="1.5" fill="white" opacity="0.5"/>
+      </svg>
+    </div>
+    <div class="header-text">
+      <h1>Cheatify</h1>
+      <p>Terms of Use</p>
+    </div>
+  </a>
+</header>
+
+<main class="page">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-label">
+      <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M5 3v2.5L6.5 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      Legal
+    </div>
+    <h2><strong>Terms of Use</strong><br>for Cheatify.</h2>
+    <div class="hero-meta">
+      <span>Last updated: April 29, 2026</span>
+      <span class="pill">Android App</span>
+    </div>
+  </div>
+
+  <!-- Table of Contents -->
+  <div class="toc">
+    <div class="toc-title">Contents</div>
+    <ul class="toc-list">
+      <li><a href="#s1"><span class="toc-num">01</span> Acceptance of Terms</a></li>
+      <li><a href="#s2"><span class="toc-num">02</span> Use of the App</a></li>
+      <li><a href="#s3"><span class="toc-num">03</span> AI Generated Content</a></li>
+      <li><a href="#s4"><span class="toc-num">04</span> Intellectual Property</a></li>
+      <li><a href="#s5"><span class="toc-num">05</span> Disclaimer of Warranties</a></li>
+      <li><a href="#s6"><span class="toc-num">06</span> Limitation of Liability</a></li>
+      <li><a href="#s7"><span class="toc-num">07</span> Third Party Services</a></li>
+      <li><a href="#s8"><span class="toc-num">08</span> Changes to Terms</a></li>
+      <li><a href="#s9"><span class="toc-num">09</span> Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- 1. Acceptance -->
+  <section class="section" id="s1">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h3 class="section-title">Acceptance of Terms</h3>
+    </div>
+    <div class="section-body">
+      <p>By downloading or using Cheatify, you agree to be bound by these Terms of Use. If you disagree with any part, please uninstall the app.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 2. Use of the App -->
+  <section class="section" id="s2">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h3 class="section-title">Use of the App</h3>
+    </div>
+    <div class="section-body">
+      <p>Cheatify is provided for personal, educational, and professional use.</p>
+      <div class="card">
+        <div class="card-title">You agree NOT to use Cheatify to</div>
+        <ul class="cross-list">
+          <li>Generate harmful or illegal content</li>
+          <li>Attempt to reverse engineer the app</li>
+          <li>Misuse or abuse the AI generation feature</li>
+          <li>Violate any applicable laws or regulations</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 3. AI Generated Content -->
+  <section class="section" id="s3">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h3 class="section-title">AI Generated Content</h3>
+    </div>
+    <div class="section-body">
+      <p>Cheat sheets are generated by AI and provided for informational purposes only.</p>
+      <ul class="clean-list">
+        <li>Content may not always be 100% accurate</li>
+        <li>Always verify critical information from official sources</li>
+        <li>We are not responsible for decisions made based on AI-generated content</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 4. Intellectual Property -->
+  <section class="section" id="s4">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h3 class="section-title">Intellectual Property</h3>
+    </div>
+    <div class="section-body">
+      <ul class="clean-list">
+        <li>The Cheatify app, name, and logo are our intellectual property</li>
+        <li>AI-generated cheat sheet content is for your personal use only</li>
+        <li>You may not redistribute or sell generated content commercially</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 5. Disclaimer of Warranties -->
+  <section class="section" id="s5">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h3 class="section-title">Disclaimer of Warranties</h3>
+    </div>
+    <div class="section-body">
+      <p>Cheatify is provided "as is" without warranties of any kind.</p>
+      <div class="card">
+        <div class="card-title">We do not guarantee</div>
+        <ul class="cross-list">
+          <li>Uninterrupted or error-free service</li>
+          <li>Accuracy of AI-generated content</li>
+          <li>Availability of the Groq AI service</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 6. Limitation of Liability -->
+  <section class="section" id="s6">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <h3 class="section-title">Limitation of Liability</h3>
+    </div>
+    <div class="section-body">
+      <p>To the maximum extent permitted by law, Cheatify and its developers shall not be liable for any indirect, incidental, or consequential damages arising from use of the app.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 7. Third Party Services -->
+  <section class="section" id="s7">
+    <div class="section-header">
+      <span class="section-num">07</span>
+      <h3 class="section-title">Third Party Services</h3>
+    </div>
+    <div class="section-body">
+      <p>Cheatify uses Groq AI for content generation. By using the app you also agree to be bound by Groq's Terms of Service at <a href="https://groq.com/terms" style="color: var(--accent); text-decoration: none;">groq.com/terms</a>.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 8. Changes to Terms -->
+  <section class="section" id="s8">
+    <div class="section-header">
+      <span class="section-num">08</span>
+      <h3 class="section-title">Changes to Terms</h3>
+    </div>
+    <div class="section-body">
+      <p>We reserve the right to modify these terms at any time. Continued use of the app after changes means you accept the new terms.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 9. Contact -->
+  <section class="section" id="s9">
+    <div class="section-header">
+      <span class="section-num">09</span>
+      <h3 class="section-title">Contact</h3>
+    </div>
+    <div class="section-body">
+      <p>Questions about these terms?</p>
+      <div class="contact-card" style="margin-top: 16px;">
+        <div class="contact-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="16" height="12" rx="2"/>
+            <path d="M2 7l8 5 8-5"/>
+          </svg>
+        </div>
+        <div class="contact-text">
+          <h4>Get in touch</h4>
+          <p>Email: <a href="mailto:[YOUR EMAIL]">[YOUR EMAIL]</a></p>
+          <p>App: Cheatify on Google Play Store</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <p>Cheatify</p>
+      <p>Generate. Save. Learn. · Made with ❤️ for learners everywhere.</p>
+    </div>
+    <div class="footer-links">
+      <a href="How It Works.html">How It Works</a>
+      <a href="Privacy Policy.html">Privacy Policy</a>
+      <a href="Terms of Use.html">Terms of Use</a>
+      <a href="mailto:[YOUR EMAIL]">Contact</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cheatify – Home</title>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="ios-frame.jsx"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 100%; height: 100%;
+    background: #060d18;
+    display: flex; align-items: center; justify-content: center;
+    font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+  }
+  .scroll-hide::-webkit-scrollbar { display: none; }
+  .scroll-hide { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
+</head>
+<body>
+<script type="text/babel">
+
+const C = {
+  bg:       '#0B1220',
+  surface:  '#111C2E',
+  surface2: '#172135',
+  border:   'rgba(255,255,255,0.06)',
+  textPri:  '#E8EDF5',
+  textSec:  '#6A829A',
+  textDim:  '#3D5470',
+  // category accent colours
+  android:  { fg: '#9B7FE8', bg: '#2A1F4A', glow: '#9B7FE820' },
+  prog:     { fg: '#E0A84A', bg: '#3A2810', glow: '#E0A84A20' },
+  compose:  { fg: '#3DBFCF', bg: '#0F3340', glow: '#3DBFCF20' },
+  async:    { fg: '#4DC98A', bg: '#0F3326', glow: '#4DC98A20' },
+  arch:     { fg: '#5B9BD5', bg: '#1E3A5F', glow: '#5B9BD520' },
+  kotlin:   { fg: '#E05A7A', bg: '#3D1420', glow: '#E05A7A20' },
+};
+
+const SHEETS = [
+  { id:1, cat:'ANDROID',     color: C.android, title:'Android Activity Lifecycle',   desc:'A series of methods called in response to changes in the activity state — from creation to destruction.',     date:'Apr 17, 2026', icon:'A' },
+  { id:2, cat:'PROGRAMMING', color: C.prog,    title:'SOLID Principles',              desc:'Five design principles making software more understandable, flexible and maintainable.',                        date:'Mar 31, 2026', icon:'S' },
+  { id:3, cat:'COMPOSE',     color: C.compose, title:'Jetpack Compose',               desc:'Composable UI, declarative API, no unnecessary layout recalculations.',                                         date:'Mar 31, 2026', icon:'J' },
+  { id:4, cat:'ASYNC',       color: C.async,   title:'Kotlin Coroutines',             desc:'Lightweight threads for async programming — structured concurrency and flow.',                                  date:'Mar 28, 2026', icon:'K' },
+  { id:5, cat:'ARCHITECTURE',color: C.arch,    title:'MVVM Pattern',                  desc:'Model-View-ViewModel separates UI logic from business logic for testability.',                                  date:'Mar 20, 2026', icon:'M' },
+  { id:6, cat:'KOTLIN',      color: C.kotlin,  title:'Kotlin Flow',                   desc:'Cold asynchronous data stream that emits values sequentially.',                                                 date:'Mar 15, 2026', icon:'F' },
+];
+
+const ALL_CATS = ['All', 'Android', 'Programming', 'Compose', 'Async', 'Architecture', 'Kotlin'];
+
+/* ── search icon ─── */
+const SearchIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+    <circle cx="11" cy="11" r="8" stroke={C.textSec} strokeWidth="2"/>
+    <path d="m21 21-4.35-4.35" stroke={C.textSec} strokeWidth="2" strokeLinecap="round"/>
+  </svg>
+);
+
+const GearIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+    <circle cx="12" cy="12" r="3" stroke={C.textPri} strokeWidth="1.8"/>
+    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" stroke={C.textPri} strokeWidth="1.8"/>
+  </svg>
+);
+
+/* ── letter icon ─── */
+const LetterIcon = ({ letter, color }) => (
+  <div style={{
+    width: 44, height: 44, borderRadius: 13,
+    background: color.bg,
+    border: `1px solid ${color.fg}25`,
+    display: 'flex', alignItems: 'center', justifyContent: 'center',
+    flexShrink: 0,
+    boxShadow: `0 4px 16px ${color.fg}18`,
+  }}>
+    <span style={{ fontSize: 18, fontWeight: 700, color: color.fg }}>{letter}</span>
+  </div>
+);
+
+/* ── hero card ─── */
+const HeroCard = ({ sheet }) => {
+  const [pressed, setPressed] = React.useState(false);
+  const { color } = sheet;
+  return (
+    <div
+      onMouseDown={() => setPressed(true)}
+      onMouseUp={() => setPressed(false)}
+      onMouseLeave={() => setPressed(false)}
+      style={{
+        margin: '0 16px',
+        borderRadius: 20,
+        background: C.surface,
+        border: `1px solid ${color.fg}25`,
+        overflow: 'hidden',
+        cursor: 'pointer',
+        transform: pressed ? 'scale(0.985)' : 'scale(1)',
+        transition: 'transform 0.15s',
+        boxShadow: `0 8px 32px ${color.fg}18`,
+      }}
+    >
+      {/* colour band */}
+      <div style={{
+        height: 4,
+        background: `linear-gradient(90deg, ${color.fg}, ${color.fg}60)`,
+      }} />
+      <div style={{ padding: '16px 18px 18px' }}>
+        {/* top row */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
+          <span style={{
+            fontSize: 10, fontWeight: 700, letterSpacing: '0.08em',
+            color: color.fg, background: color.bg,
+            border: `1px solid ${color.fg}30`,
+            borderRadius: 6, padding: '3px 8px',
+          }}>{sheet.cat}</span>
+          <span style={{ fontSize: 11, color: C.textDim }}>{sheet.date}</span>
+        </div>
+        {/* content row */}
+        <div style={{ display: 'flex', gap: 14, alignItems: 'flex-start' }}>
+          <LetterIcon letter={sheet.icon} color={color} />
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontSize: 18, fontWeight: 700, color: C.textPri, lineHeight: 1.25, marginBottom: 6 }}>{sheet.title}</div>
+            <div style={{ fontSize: 13, color: C.textSec, lineHeight: 1.5 }}>{sheet.desc}</div>
+          </div>
+        </div>
+        {/* footer */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginTop: 14 }}>
+          <span style={{ fontSize: 13, fontWeight: 600, color: color.fg }}>View Details</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+            <path d="M5 12h14M12 5l7 7-7 7" stroke={color.fg} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/* ── regular card ─── */
+const Card = ({ sheet }) => {
+  const [pressed, setPressed] = React.useState(false);
+  const { color } = sheet;
+  return (
+    <div
+      onMouseDown={() => setPressed(true)}
+      onMouseUp={() => setPressed(false)}
+      onMouseLeave={() => setPressed(false)}
+      style={{
+        margin: '0 16px',
+        borderRadius: 16,
+        background: C.surface,
+        border: `1px solid ${C.border}`,
+        overflow: 'hidden',
+        cursor: 'pointer',
+        transform: pressed ? 'scale(0.985)' : 'scale(1)',
+        transition: 'transform 0.15s',
+        display: 'flex',
+      }}
+    >
+      {/* left accent bar */}
+      <div style={{ width: 3, flexShrink: 0, background: `linear-gradient(180deg, ${color.fg}, ${color.fg}40)` }} />
+      <div style={{ padding: '13px 14px', flex: 1, minWidth: 0 }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span style={{
+              fontSize: 9, fontWeight: 700, letterSpacing: '0.08em',
+              color: color.fg, background: color.bg,
+              border: `1px solid ${color.fg}30`,
+              borderRadius: 5, padding: '2px 7px',
+            }}>{sheet.cat}</span>
+          </div>
+          <span style={{ fontSize: 11, color: C.textDim }}>{sheet.date}</span>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontSize: 15, fontWeight: 700, color: C.textPri, lineHeight: 1.25, marginBottom: 3 }}>{sheet.title}</div>
+            <div style={{
+              fontSize: 12, color: C.textSec, lineHeight: 1.4,
+              overflow: 'hidden', display: '-webkit-box',
+              WebkitLineClamp: 2, WebkitBoxOrient: 'vertical',
+            }}>{sheet.desc}</div>
+          </div>
+          <div style={{
+            width: 32, height: 32, borderRadius: 9,
+            background: color.bg,
+            border: `1px solid ${color.fg}20`,
+            display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+          }}>
+            <span style={{ fontSize: 13, fontWeight: 700, color: color.fg }}>{sheet.icon}</span>
+          </div>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 3, marginTop: 10 }}>
+          <span style={{ fontSize: 12, fontWeight: 600, color: color.fg }}>View Details</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+            <path d="M5 12h14M12 5l7 7-7 7" stroke={color.fg} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/* ── filter chip ─── */
+const Chip = ({ label, active, onClick }) => (
+  <button onClick={onClick} style={{
+    flexShrink: 0,
+    padding: '6px 14px', borderRadius: 20,
+    background: active ? '#4A7C96' : C.surface2,
+    border: `1px solid ${active ? '#4A7C9660' : C.border}`,
+    color: active ? '#fff' : C.textSec,
+    fontSize: 12, fontWeight: 600,
+    cursor: 'pointer',
+    transition: 'all 0.15s',
+    letterSpacing: '0.01em',
+  }}>{label}</button>
+);
+
+/* ── main app ─── */
+function HomePage() {
+  const [activeFilter, setActiveFilter] = React.useState('All');
+  const [search, setSearch] = React.useState('');
+
+  const filtered = SHEETS.filter(s => {
+    const matchCat = activeFilter === 'All' || s.cat.toLowerCase().startsWith(activeFilter.toLowerCase());
+    const matchSearch = s.title.toLowerCase().includes(search.toLowerCase());
+    return matchCat && matchSearch;
+  });
+
+  const hero = filtered[0];
+  const rest = filtered.slice(1);
+
+  return (
+    <IOSDevice statusStyle="light">
+      <div style={{ height: '100%', background: C.bg, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+
+        {/* ── header ── */}
+        <div style={{ padding: '12px 18px 10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div>
+            <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.12em', color: C.textSec, textTransform: 'uppercase' }}>Welcome back</div>
+            <div style={{ fontSize: 22, fontWeight: 800, color: C.textPri, letterSpacing: '-0.5px', lineHeight: 1.15 }}>Cheatify</div>
+          </div>
+          <button style={{ background: C.surface2, border: `1px solid ${C.border}`, borderRadius: 12, width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+            <GearIcon />
+          </button>
+        </div>
+
+        {/* ── search ── */}
+        <div style={{ padding: '0 16px 10px' }}>
+          <div style={{
+            display: 'flex', alignItems: 'center', gap: 10,
+            background: C.surface, borderRadius: 14,
+            border: `1px solid ${C.border}`,
+            padding: '10px 14px',
+          }}>
+            <SearchIcon />
+            <input
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              placeholder="Search cheat sheets…"
+              style={{
+                flex: 1, background: 'none', border: 'none', outline: 'none',
+                fontSize: 14, color: C.textPri,
+              }}
+            />
+          </div>
+        </div>
+
+        {/* ── filter chips ── */}
+        <div style={{ display: 'flex', gap: 8, padding: '0 16px 14px', overflowX: 'auto' }} className="scroll-hide">
+          {ALL_CATS.map(c => (
+            <Chip key={c} label={c} active={activeFilter === c} onClick={() => setActiveFilter(c)} />
+          ))}
+        </div>
+
+        {/* ── scroll content ── */}
+        <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 10, paddingBottom: 90 }} className="scroll-hide">
+
+          {/* count */}
+          <div style={{ padding: '0 18px 2px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <span style={{ fontSize: 12, color: C.textSec }}>{filtered.length} sheet{filtered.length !== 1 ? 's' : ''}</span>
+            <span style={{ fontSize: 12, color: C.textDim }}>Recent first</span>
+          </div>
+
+          {filtered.length === 0 && (
+            <div style={{ textAlign: 'center', padding: '40px 24px', color: C.textSec, fontSize: 14 }}>
+              No sheets found
+            </div>
+          )}
+
+          {hero && <HeroCard sheet={hero} />}
+          {rest.map(s => <Card key={s.id} sheet={s} />)}
+        </div>
+
+        {/* ── FAB ── */}
+        <div style={{
+          position: 'absolute', bottom: 36, right: 20,
+          width: 52, height: 52, borderRadius: 16,
+          background: 'linear-gradient(135deg, #4A7C96, #3DBFCF)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          boxShadow: '0 8px 24px #3DBFCF40',
+          cursor: 'pointer',
+        }}>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M12 5v14M5 12h14" stroke="#fff" strokeWidth="2.2" strokeLinecap="round"/>
+          </svg>
+        </div>
+
+      </div>
+    </IOSDevice>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<HomePage />);
+</script>
+<div id="root"></div>
+</body>
+</html>

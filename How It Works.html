@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How It Works — Cheatify</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f7f6f3;
+    --surface: #ffffff;
+    --ink: #1a1917;
+    --ink-2: #5a5753;
+    --ink-3: #9c9895;
+    --accent: oklch(52% 0.18 260);
+    --accent-light: oklch(96% 0.04 260);
+    --border: #e8e6e1;
+    --tag-bg: oklch(96% 0.04 260);
+    --tag-ink: oklch(40% 0.16 260);
+    --green: #2e7d32;
+    --green-bg: #e8f5e9;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 32px 0 28px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .header-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .logo-mark {
+    width: 36px;
+    height: 36px;
+    background: var(--accent);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .header-text h1 { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
+  .header-text p { font-size: 12px; color: var(--ink-3); font-family: 'DM Mono', monospace; margin-top: 2px; }
+
+  /* ── LAYOUT ── */
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 48px 32px 96px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    margin-bottom: 56px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--tag-ink);
+    background: var(--tag-bg);
+    padding: 4px 10px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .hero h2 {
+    font-size: 40px;
+    font-weight: 300;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .hero h2 strong { font-weight: 600; }
+
+  .hero .subtitle {
+    font-size: 17px;
+    color: var(--ink-2);
+    max-width: 480px;
+    line-height: 1.6;
+    text-wrap: pretty;
+  }
+
+  /* ── SECTION ── */
+  .section {
+    margin-bottom: 52px;
+    scroll-margin-top: 100px;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-3);
+    margin-bottom: 10px;
+  }
+
+  .section-title {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+    color: var(--ink);
+  }
+
+  .section-body p {
+    font-size: 15px;
+    color: var(--ink-2);
+    line-height: 1.75;
+    text-wrap: pretty;
+    margin-bottom: 16px;
+  }
+
+  .section-body p:last-child { margin-bottom: 0; }
+
+  .divider { height: 1px; background: var(--border); margin: 52px 0; }
+
+  /* ── STEPS ── */
+  .steps { display: flex; flex-direction: column; gap: 0; }
+
+  .step {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 0 20px;
+    position: relative;
+  }
+
+  .step:not(:last-child) .step-line {
+    position: absolute;
+    left: 23px;
+    top: 48px;
+    bottom: 0;
+    width: 2px;
+    background: var(--border);
+  }
+
+  .step-num {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .step-content {
+    padding-bottom: 36px;
+  }
+
+  .step-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    padding-top: 12px;
+    color: var(--ink);
+  }
+
+  .step-desc {
+    font-size: 14.5px;
+    color: var(--ink-2);
+    line-height: 1.7;
+    text-wrap: pretty;
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-top: 12px;
+  }
+
+  .card-title {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-3);
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 12px;
+  }
+
+  /* ── LISTS ── */
+  .clean-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .clean-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 14.5px; color: var(--ink-2); line-height: 1.55; }
+  .clean-list li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); margin-top: 8px; flex-shrink: 0; }
+
+  .check-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .check-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 14.5px; color: var(--ink-2); line-height: 1.55; }
+  .check-list li::before { content: '✓'; font-size: 12px; color: var(--green); font-weight: 700; margin-top: 2px; flex-shrink: 0; width: 16px; }
+
+  .cross-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .cross-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 14.5px; color: var(--ink-2); line-height: 1.55; }
+  .cross-list li::before { content: '×'; font-size: 14px; color: #c62828; font-weight: 500; flex-shrink: 0; width: 16px; }
+
+  /* ── CONTENT TYPES GRID ── */
+  .content-types {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  .content-type-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .ct-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .ct-label {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+
+  .ct-desc {
+    font-size: 12.5px;
+    color: var(--ink-3);
+    line-height: 1.4;
+  }
+
+  /* ── OFFLINE SPLIT ── */
+  .offline-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .offline-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+  }
+
+  .offline-card-title {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--ink);
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .status-dot.green { background: #4caf50; }
+  .status-dot.gray { background: #9e9e9e; }
+
+  /* ── ORGANIZER GRID ── */
+  .org-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  .org-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+
+  .org-item-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .org-item-desc {
+    font-size: 13px;
+    color: var(--ink-2);
+    line-height: 1.5;
+  }
+
+  /* ── AI FLOW ── */
+  .ai-flow {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 16px;
+  }
+
+  .ai-flow-title {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-3);
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 20px;
+  }
+
+  .flow-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .flow-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    position: relative;
+  }
+
+  .flow-step:not(:last-child) {
+    padding-bottom: 16px;
+  }
+
+  .flow-step:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 14px;
+    top: 28px;
+    bottom: 0;
+    width: 1px;
+    background: var(--border);
+  }
+
+  .flow-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--accent-light);
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .flow-text {
+    font-size: 14px;
+    color: var(--ink-2);
+    padding-top: 5px;
+    line-height: 1.5;
+  }
+
+  /* ── FAQ ── */
+  .faq { display: flex; flex-direction: column; gap: 2px; margin-top: 16px; }
+
+  .faq-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .faq-q {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 20px;
+    cursor: pointer;
+    user-select: none;
+    font-size: 14.5px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .faq-q:hover { background: var(--bg); }
+
+  .faq-chevron {
+    width: 18px;
+    height: 18px;
+    color: var(--ink-3);
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+
+  .faq-item.open .faq-chevron { transform: rotate(180deg); }
+
+  .faq-a {
+    display: none;
+    padding: 0 20px 16px;
+    font-size: 14px;
+    color: var(--ink-2);
+    line-height: 1.65;
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+  }
+
+  .faq-item.open .faq-a { display: block; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 36px 32px;
+  }
+
+  .footer-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .footer-brand p:first-child {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .footer-brand p:last-child {
+    font-size: 12px;
+    color: var(--ink-3);
+  }
+
+  .footer-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+    color: var(--ink-2);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .footer-links a:hover { color: var(--accent); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .page { padding: 32px 20px 72px; }
+    .header-inner { padding: 0 20px; }
+    .hero h2 { font-size: 30px; }
+    .content-types, .offline-grid, .org-grid { grid-template-columns: 1fr; }
+    .footer-inner { flex-direction: column; align-items: flex-start; }
+    footer { padding: 28px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="header-inner" style="text-decoration:none;color:inherit;">
+    <div class="logo-mark">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+        <rect x="2" y="2" width="14" height="3" rx="1.5" fill="white"/>
+        <rect x="2" y="7.5" width="9" height="3" rx="1.5" fill="white" opacity="0.7"/>
+        <rect x="2" y="13" width="11" height="3" rx="1.5" fill="white" opacity="0.5"/>
+      </svg>
+    </div>
+    <div class="header-text">
+      <h1>Cheatify</h1>
+      <p>How It Works</p>
+    </div>
+  </a>
+</header>
+
+<main class="page">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-label">
+      <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1l1.2 2.4L9 3.8 7 5.7l.5 2.8L5 7.2 2.5 8.5 3 5.7 1 3.8l2.8-.4z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+      Product
+    </div>
+    <h2><strong>How Cheatify</strong><br>Works</h2>
+    <p class="subtitle">Generate structured AI-powered cheat sheets on any topic in seconds.</p>
+  </div>
+
+  <!-- Section 1: What is Cheatify -->
+  <section class="section" id="what">
+    <div class="section-label">01 — The Basics</div>
+    <h2 class="section-title">What is Cheatify?</h2>
+    <div class="section-body">
+      <p>Cheatify is an AI-powered Android app that generates clean, structured cheat sheets on any topic you want to learn or reference.</p>
+      <p>Whether you're a developer, student, or professional — just type a topic and get a beautifully organized cheat sheet instantly. No searching. No scrolling. Just the essentials, structured and saved.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Section 2: Steps -->
+  <section class="section" id="steps">
+    <div class="section-label">02 — Step by Step</div>
+    <h2 class="section-title">Generating a Cheat Sheet</h2>
+
+    <div class="steps">
+      <!-- Step 1 -->
+      <div class="step">
+        <div class="step-line"></div>
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <div class="step-title">Type Your Topic</div>
+          <p class="step-desc">Open the Generate tab and type any topic you want a cheat sheet for. Any topic works — technical or non-technical.</p>
+          <div class="card">
+            <div class="card-title">Examples</div>
+            <ul class="clean-list">
+              <li>Kotlin Coroutines</li>
+              <li>SQL Joins</li>
+              <li>Git Commands</li>
+              <li>Photosynthesis</li>
+              <li>French Grammar Basics</li>
+              <li>Machine Learning Terms</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="step">
+        <div class="step-line"></div>
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <div class="step-title">AI Generates Content</div>
+          <p class="step-desc">Cheatify sends your topic to Groq AI — one of the fastest AI inference engines available. In seconds it generates a fully structured cheat sheet.</p>
+          <div class="card">
+            <div class="card-title">What's generated</div>
+            <ul class="check-list">
+              <li>Clear section titles</li>
+              <li>Explanations and definitions</li>
+              <li>Code examples (for technical topics)</li>
+              <li>Tables and schemas</li>
+              <li>Important notes and tips</li>
+              <li>Warnings and common errors</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="step">
+        <div class="step-line"></div>
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <div class="step-title">Saved Automatically</div>
+          <p class="step-desc">Your cheat sheet is saved instantly to your device. No manual saving needed. It appears in your Home screen immediately.</p>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <div class="step-title">Access Anytime Offline</div>
+          <p class="step-desc">All saved cheat sheets live on your device. No internet needed to view them. Open, read, and reference them anytime — even on a plane.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Section 3: Cheat Sheet Structure -->
+  <section class="section" id="structure">
+    <div class="section-label">03 — Content Structure</div>
+    <h2 class="section-title">What's Inside a Cheat Sheet?</h2>
+    <div class="section-body">
+      <p>Every generated cheat sheet is built from a set of structured components designed for quick scanning and reference.</p>
+    </div>
+    <div class="content-types">
+      <div class="content-type-item">
+        <div class="ct-icon">📌</div>
+        <div>
+          <div class="ct-label">Title</div>
+          <div class="ct-desc">A short, clear title for the topic</div>
+        </div>
+      </div>
+      <div class="content-type-item">
+        <div class="ct-icon">📝</div>
+        <div>
+          <div class="ct-label">Description</div>
+          <div class="ct-desc">A 3-line summary of what the cheat sheet covers</div>
+        </div>
+      </div>
+      <div class="content-type-item">
+        <div class="ct-icon">🏷️</div>
+        <div>
+          <div class="ct-label">Badges</div>
+          <div class="ct-desc">Smart tags for easy filtering and search</div>
+        </div>
+      </div>
+      <div class="content-type-item">
+        <div class="ct-icon">💡</div>
+        <div>
+          <div class="ct-label">Tips</div>
+          <div class="ct-desc">Best practices and shortcuts</div>
+        </div>
+      </div>
+      <div class="content-type-item">
+        <div class="ct-icon">⚠️</div>
+        <div>
+          <div class="ct-label">Warnings</div>
+          <div class="ct-desc">Things to watch out for</div>
+        </div>
+      </div>
+      <div class="content-type-item">
+        <div class="ct-icon">💻</div>
+        <div>
+          <div class="ct-label">Code</div>
+          <div class="ct-desc">Real code examples and schemas</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Section 4: Offline First -->
+  <section class="section" id="offline">
+    <div class="section-label">04 — Offline First</div>
+    <h2 class="section-title">Offline First Design</h2>
+    <div class="section-body">
+      <p>Cheatify is built with an offline-first approach. Your data never depends on a server — everything is stored locally using a local database.</p>
+    </div>
+    <div class="offline-grid">
+      <div class="offline-card">
+        <div class="offline-card-title">
+          <div class="status-dot green"></div>
+          Internet available
+        </div>
+        <ul class="check-list">
+          <li>Generate new cheat sheets via Groq AI</li>
+          <li>Fresh content saved to your device</li>
+        </ul>
+      </div>
+      <div class="offline-card">
+        <div class="offline-card-title">
+          <div class="status-dot gray"></div>
+          No internet
+        </div>
+        <ul class="check-list">
+          <li>Browse all saved cheat sheets</li>
+          <li>Search your library</li>
+          <li>Manage favorites</li>
+          <li>Everything works offline</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Section 5: Stay Organized -->
+  <section class="section" id="organize">
+    <div class="section-label">05 — Organization</div>
+    <h2 class="section-title">Stay Organized</h2>
+    <div class="section-body">
+      <p>Cheatify gives you tools to manage your growing cheat sheet library.</p>
+    </div>
+    <div class="org-grid">
+      <div class="org-item">
+        <div class="org-item-title">Favorites</div>
+        <div class="org-item-desc">Star any cheat sheet to pin it to your Favorites tab for instant access.</div>
+      </div>
+      <div class="org-item">
+        <div class="org-item-title">Search</div>
+        <div class="org-item-desc">Search across all your cheat sheets by title or topic instantly.</div>
+      </div>
+      <div class="org-item">
+        <div class="org-item-title">Badges</div>
+        <div class="org-item-desc">Each cheat sheet is auto-tagged so you can filter by topic quickly.</div>
+      </div>
+      <div class="org-item">
+        <div class="org-item-title">Delete</div>
+        <div class="org-item-desc">Remove any cheat sheet from the detail screen or clear all via Settings.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Section 6: AI & Privacy -->
+  <section class="section" id="ai">
+    <div class="section-label">06 — AI &amp; Privacy</div>
+    <h2 class="section-title">How AI Works in Cheatify</h2>
+    <div class="section-body">
+      <p>Cheatify uses Groq AI to generate cheat sheet content. Here is exactly what happens when you generate a cheat sheet:</p>
+    </div>
+    <div class="ai-flow">
+      <div class="ai-flow-title">Generation flow</div>
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="flow-num">1</div>
+          <div class="flow-text">You type a topic (e.g. "Kotlin Coroutines")</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">2</div>
+          <div class="flow-text">Cheatify sends <strong>only that topic text</strong> to Groq AI servers</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">3</div>
+          <div class="flow-text">Groq AI returns structured cheat sheet content</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">4</div>
+          <div class="flow-text">Content is saved to your device</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">5</div>
+          <div class="flow-text">Nothing else is sent or stored</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="margin-top: 12px;">
+      <div class="card-title">We do NOT send</div>
+      <ul class="cross-list">
+        <li>Your name or personal details</li>
+        <li>Your device information</li>
+        <li>Your location</li>
+        <li>Any previously saved cheat sheets</li>
+        <li>Any usage data or analytics</li>
+      </ul>
+    </div>
+    <p style="font-size: 13.5px; color: var(--ink-3); margin-top: 14px;">Your privacy is our priority. Read our full <a href="Privacy Policy.html" style="color: var(--accent); text-decoration: none;">Privacy Policy</a> for complete details.</p>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Section 7: FAQ -->
+  <section class="section" id="faq">
+    <div class="section-label">07 — FAQ</div>
+    <h2 class="section-title">Frequently Asked Questions</h2>
+    <div class="faq">
+
+      <div class="faq-item open">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Does Cheatify work without internet?
+          <svg class="faq-chevron" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4.5 6.75L9 11.25l4.5-4.5"/></svg>
+        </div>
+        <div class="faq-a">Yes! All saved cheat sheets are fully accessible offline. You only need internet to generate new ones.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Is my data stored on a server?
+          <svg class="faq-chevron" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4.5 6.75L9 11.25l4.5-4.5"/></svg>
+        </div>
+        <div class="faq-a">No. All cheat sheets are stored locally on your device only. We have no access to your content.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          What topics can I generate cheat sheets for?
+          <svg class="faq-chevron" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4.5 6.75L9 11.25l4.5-4.5"/></svg>
+        </div>
+        <div class="faq-a">Any topic! Programming languages, frameworks, academic subjects, languages, tools, concepts — anything you can think of.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          How accurate is the AI content?
+          <svg class="faq-chevron" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4.5 6.75L9 11.25l4.5-4.5"/></svg>
+        </div>
+        <div class="faq-a">Groq AI powered by Llama generates high quality content. However, always verify critical information from official documentation or sources.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Can I delete my data?
+          <svg class="faq-chevron" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4.5 6.75L9 11.25l4.5-4.5"/></svg>
+        </div>
+        <div class="faq-a">Yes. Delete individual cheat sheets from the detail screen, or delete everything at once via Settings → Clear All Data.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Is Cheatify free?
+          <svg class="faq-chevron" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4.5 6.75L9 11.25l4.5-4.5"/></svg>
+        </div>
+        <div class="faq-a">Yes, Cheatify is completely free to use.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          What AI powers Cheatify?
+          <svg class="faq-chevron" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4.5 6.75L9 11.25l4.5-4.5"/></svg>
+        </div>
+        <div class="faq-a">Cheatify uses Groq AI with the Llama 3.1 model — one of the fastest and most capable open source AI models available today.</div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <p>Cheatify</p>
+      <p>Generate. Save. Learn. · Made with ❤️ for learners everywhere.</p>
+    </div>
+    <div class="footer-links">
+      <a href="Privacy Policy.html">Privacy Policy</a>
+      <a href="Terms of Use.html">Terms of Use</a>
+      <a href="mailto:[YOUR EMAIL]">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleFaq(el) {
+    const item = el.closest('.faq-item');
+    item.classList.toggle('open');
+  }
+</script>
+
+</body>
+</html>

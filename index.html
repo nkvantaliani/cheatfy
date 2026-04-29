@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cheatify</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f7f6f3;
+    --surface: #ffffff;
+    --ink: #1a1917;
+    --ink-2: #5a5753;
+    --ink-3: #9c9895;
+    --accent: oklch(52% 0.18 260);
+    --accent-light: oklch(96% 0.04 260);
+    --border: #e8e6e1;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 32px;
+  }
+
+  .header-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .logo-mark {
+    width: 36px;
+    height: 36px;
+    background: var(--accent);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .header-text h1 { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
+  .header-text p { font-size: 12px; color: var(--ink-3); font-family: 'DM Mono', monospace; margin-top: 2px; }
+
+  main {
+    flex: 1;
+    max-width: 760px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 64px 32px 96px;
+  }
+
+  .hero {
+    margin-bottom: 56px;
+  }
+
+  .hero h2 {
+    font-size: 38px;
+    font-weight: 300;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin-bottom: 14px;
+  }
+
+  .hero h2 strong { font-weight: 600; }
+
+  .hero p {
+    font-size: 16px;
+    color: var(--ink-2);
+    max-width: 400px;
+    line-height: 1.65;
+  }
+
+  .pages-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-3);
+    margin-bottom: 16px;
+  }
+
+  .pages {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .page-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+
+  .page-link:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-light);
+  }
+
+  .page-link-left { display: flex; align-items: center; gap: 16px; }
+
+  .page-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--accent-light);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--accent);
+  }
+
+  .page-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 3px;
+  }
+
+  .page-desc {
+    font-size: 13px;
+    color: var(--ink-3);
+  }
+
+  .page-arrow {
+    color: var(--ink-3);
+    flex-shrink: 0;
+    transition: transform 0.15s, color 0.15s;
+  }
+
+  .page-link:hover .page-arrow {
+    transform: translateX(3px);
+    color: var(--accent);
+  }
+
+  footer {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 32px;
+  }
+
+  .footer-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .footer-brand p:first-child { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+  .footer-brand p:last-child { font-size: 12px; color: var(--ink-3); }
+
+  .footer-links { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .footer-links a { font-size: 13px; color: var(--ink-2); text-decoration: none; transition: color 0.15s; }
+  .footer-links a:hover { color: var(--accent); }
+
+  @media (max-width: 600px) {
+    main { padding: 40px 20px 72px; }
+    header { padding: 20px; }
+    .hero h2 { font-size: 28px; }
+    footer { padding: 24px 20px; }
+    .footer-inner { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo-mark">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+        <rect x="2" y="2" width="14" height="3" rx="1.5" fill="white"/>
+        <rect x="2" y="7.5" width="9" height="3" rx="1.5" fill="white" opacity="0.7"/>
+        <rect x="2" y="13" width="11" height="3" rx="1.5" fill="white" opacity="0.5"/>
+      </svg>
+    </div>
+    <div class="header-text">
+      <h1>Cheatify</h1>
+      <p>Generate. Save. Learn.</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <h2><strong>AI-powered</strong><br>cheat sheets.</h2>
+    <p>Generate structured cheat sheets on any topic in seconds. Saved locally. Accessible offline.</p>
+  </div>
+
+  <div class="pages-label">Pages</div>
+  <div class="pages">
+
+    <a href="How It Works.html" class="page-link">
+      <div class="page-link-left">
+        <div class="page-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="9" r="7"/>
+            <path d="M9 8v4M9 6h.01"/>
+          </svg>
+        </div>
+        <div>
+          <div class="page-title">How It Works</div>
+          <div class="page-desc">Features, steps, FAQ, and AI details</div>
+        </div>
+      </div>
+      <svg class="page-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4.5 9h9M9 4.5L13.5 9 9 13.5"/>
+      </svg>
+    </a>
+
+    <a href="Privacy Policy.html" class="page-link">
+      <div class="page-link-left">
+        <div class="page-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 2L3 5v4c0 3.5 2.5 6.5 6 7.5 3.5-1 6-4 6-7.5V5L9 2z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="page-title">Privacy Policy</div>
+          <div class="page-desc">How we handle your data — and what we don't collect</div>
+        </div>
+      </div>
+      <svg class="page-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4.5 9h9M9 4.5L13.5 9 9 13.5"/>
+      </svg>
+    </a>
+
+    <a href="Terms of Use.html" class="page-link">
+      <div class="page-link-left">
+        <div class="page-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="2" width="12" height="14" rx="1.5"/>
+            <path d="M6 6h6M6 9h6M6 12h4"/>
+          </svg>
+        </div>
+        <div>
+          <div class="page-title">Terms of Use</div>
+          <div class="page-desc">Rules, warranties, and liability details</div>
+        </div>
+      </div>
+      <svg class="page-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4.5 9h9M9 4.5L13.5 9 9 13.5"/>
+      </svg>
+    </a>
+
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <p>Cheatify</p>
+      <p>Generate. Save. Learn. · Made with ❤️ for learners everywhere.</p>
+    </div>
+    <div class="footer-links">
+      <a href="How It Works.html">How It Works</a>
+      <a href="Privacy Policy.html">Privacy Policy</a>
+      <a href="Terms of Use.html">Terms of Use</a>
+      <a href="mailto:[YOUR EMAIL]">Contact</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

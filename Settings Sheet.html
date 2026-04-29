@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cheatfy – Settings Sheet</title>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="ios-frame.jsx"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; background: #060d18; display: flex; align-items: center; justify-content: center; font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif; }
+</style>
+</head>
+<body>
+<script type="text/babel">
+
+/* ── colour tokens (from palette) ────────────────────────────── */
+const C = {
+  bg:        '#0B1220',
+  surface:   '#111C2E',
+  surface2:  '#172135',
+  border:    'rgba(255,255,255,0.06)',
+  textPri:   '#E8EDF5',
+  textSec:   '#6A829A',
+  sectionLbl:'#4A7C96',
+  chevron:   '#2E4A62',
+  /* icon tints */
+  tintBlue:  '#1E3A5F',
+  tintTeal:  '#0F3340',
+  tintPurple:'#2A1F4A',
+  tintGreen: '#0F3326',
+  tintRed:   '#3D1420',
+  tintAmber: '#3A2810',
+  /* icon fg */
+  iconBlue:  '#5B9BD5',
+  iconTeal:  '#3DBFCF',
+  iconPurple:'#9B7FE8',
+  iconGreen: '#4DC98A',
+  iconRed:   '#E05A7A',
+  iconAmber: '#E0A84A',
+  /* badges */
+  badgeGreenBg: '#0F3326',
+  badgeGreenTx: '#4DC98A',
+  badgeGrayBg:  '#172135',
+  badgeGrayTx:  '#6A829A',
+};
+
+/* ── tiny SVG icons ───────────────────────────────────────────── */
+const Icon = ({ name, color = '#fff', size = 16 }) => {
+  const paths = {
+    book: <><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke={color} strokeWidth="1.8" strokeLinecap="round"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke={color} strokeWidth="1.8"/></>,
+    shield: <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke={color} strokeWidth="1.8" strokeLinejoin="round"/>,
+    doc: <><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke={color} strokeWidth="1.8" strokeLinejoin="round"/><polyline points="14 2 14 8 20 8" stroke={color} strokeWidth="1.8" strokeLinejoin="round"/></>,
+    hdd: <><ellipse cx="12" cy="5" rx="9" ry="3" stroke={color} strokeWidth="1.8"/><path d="M21 12c0 1.66-4.03 3-9 3S3 13.66 3 12" stroke={color} strokeWidth="1.8"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5" stroke={color} strokeWidth="1.8"/></>,
+    cpu: <><rect x="9" y="9" width="6" height="6" stroke={color} strokeWidth="1.8"/><path d="M9 1v4M15 1v4M9 19v4M15 19v4M1 9h4M1 15h4M19 9h4M19 15h4" stroke={color} strokeWidth="1.8" strokeLinecap="round"/><rect x="2" y="2" width="20" height="20" rx="2" stroke={color} strokeWidth="1.8"/></>,
+    eye: <><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke={color} strokeWidth="1.8"/><circle cx="12" cy="12" r="3" stroke={color} strokeWidth="1.8"/></>,
+    bookmark: <><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" stroke={color} strokeWidth="1.8" strokeLinejoin="round"/></>,
+    trash: <><polyline points="3 6 5 6 21 6" stroke={color} strokeWidth="1.8" strokeLinecap="round"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" stroke={color} strokeWidth="1.8"/><path d="M10 11v6M14 11v6" stroke={color} strokeWidth="1.8" strokeLinecap="round"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" stroke={color} strokeWidth="1.8"/></>,
+    info: <><circle cx="12" cy="12" r="10" stroke={color} strokeWidth="1.8"/><line x1="12" y1="16" x2="12" y2="12" stroke={color} strokeWidth="1.8" strokeLinecap="round"/><line x1="12" y1="8" x2="12.01" y2="8" stroke={color} strokeWidth="2.5" strokeLinecap="round"/></>,
+    star: <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" stroke={color} strokeWidth="1.8" strokeLinejoin="round"/>,
+  };
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {paths[name]}
+    </svg>
+  );
+};
+
+/* ── icon container ───────────────────────────────────────────── */
+const IconBox = ({ icon, bg, fg }) => (
+  <div style={{
+    width: 36, height: 36, borderRadius: 10,
+    background: bg,
+    display: 'flex', alignItems: 'center', justifyContent: 'center',
+    flexShrink: 0,
+    border: `1px solid ${bg}`,
+    boxShadow: `0 1px 6px ${bg}80`,
+  }}>
+    <Icon name={icon} color={fg} size={17} />
+  </div>
+);
+
+/* ── badge ────────────────────────────────────────────────────── */
+const Badge = ({ label, variant = 'green' }) => {
+  const bg = variant === 'green' ? C.badgeGreenBg : C.badgeGrayBg;
+  const tx = variant === 'green' ? C.badgeGreenTx : C.badgeGrayTx;
+  return (
+    <span style={{
+      fontSize: 10, fontWeight: 600, letterSpacing: '0.04em',
+      background: bg, color: tx,
+      border: `1px solid ${tx}30`,
+      borderRadius: 6, padding: '3px 7px',
+      whiteSpace: 'nowrap', flexShrink: 0,
+    }}>{label}</span>
+  );
+};
+
+/* ── row ──────────────────────────────────────────────────────── */
+const Row = ({ icon, bg, fg, title, sub, badge, badgeVariant, chevron = true, danger = false }) => {
+  const [pressed, setPressed] = React.useState(false);
+  return (
+    <div
+      onMouseDown={() => setPressed(true)}
+      onMouseUp={() => setPressed(false)}
+      onMouseLeave={() => setPressed(false)}
+      style={{
+        display: 'flex', alignItems: 'center', gap: 12,
+        padding: '10px 16px',
+        background: pressed ? 'rgba(255,255,255,0.04)' : 'transparent',
+        cursor: 'pointer', transition: 'background 0.12s',
+        borderRadius: 0,
+      }}
+    >
+      <IconBox icon={icon} bg={bg} fg={fg} />
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{
+          fontSize: 15, fontWeight: 500,
+          color: danger ? C.iconRed : C.textPri,
+          lineHeight: 1.3,
+        }}>{title}</div>
+        {sub && <div style={{
+          fontSize: 12, color: C.textSec, marginTop: 2, lineHeight: 1.35,
+          whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
+        }}>{sub}</div>}
+      </div>
+      {badge && <Badge label={badge} variant={badgeVariant} />}
+      {chevron && (
+        <svg width="7" height="12" viewBox="0 0 7 12" fill="none">
+          <path d="M1 1l5 5-5 5" stroke={C.chevron} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      )}
+    </div>
+  );
+};
+
+/* ── section header ───────────────────────────────────────────── */
+const Section = ({ label }) => (
+  <div style={{
+    padding: '18px 16px 6px',
+    fontSize: 11, fontWeight: 700,
+    letterSpacing: '0.08em', textTransform: 'uppercase',
+    color: C.sectionLbl,
+  }}>{label}</div>
+);
+
+/* ── divider ──────────────────────────────────────────────────── */
+const Divider = () => (
+  <div style={{ height: 1, background: C.border, marginLeft: 64 }} />
+);
+
+/* ── settings sheet ───────────────────────────────────────────── */
+const SettingsSheet = () => (
+  <div style={{
+    height: '100%',
+    background: C.bg,
+    overflowY: 'auto',
+    display: 'flex', flexDirection: 'column',
+    WebkitOverflowScrolling: 'touch',
+  }}>
+    {/* drag handle */}
+    <div style={{ display: 'flex', justifyContent: 'center', padding: '10px 0 4px' }}>
+      <div style={{ width: 36, height: 4, borderRadius: 2, background: 'rgba(255,255,255,0.18)' }} />
+    </div>
+
+    {/* title */}
+    <div style={{ padding: '8px 16px 4px' }}>
+      <h1 style={{ fontSize: 22, fontWeight: 700, color: C.textPri, letterSpacing: '-0.3px' }}>Settings</h1>
+    </div>
+
+    {/* ── HOW IT WORKS ── */}
+    <Section label="How It Works" />
+    <div style={{ background: C.surface, borderRadius: 14, margin: '0 12px', overflow: 'hidden', border: `1px solid ${C.border}` }}>
+      <Row icon="book"    bg={C.tintBlue}   fg={C.iconBlue}   title="How It Works"   sub="See how Cheatify generates cheat sheets" />
+      <Divider />
+      <Row icon="shield"  bg={C.tintTeal}   fg={C.iconTeal}   title="Privacy Policy"  sub="How we handle your data" />
+      <Divider />
+      <Row icon="doc"     bg={C.tintPurple} fg={C.iconPurple} title="Terms of Use"    sub="Rules and guidelines for using Cheatify" />
+    </div>
+
+    {/* ── DATA & PRIVACY ── */}
+    <Section label="Data & Privacy" />
+    <div style={{ background: C.surface, borderRadius: 14, margin: '0 12px', overflow: 'hidden', border: `1px solid ${C.border}` }}>
+      <Row icon="hdd"      bg={C.tintGreen}  fg={C.iconGreen}  title="Data Storage"      sub="All data stored locally on your device"   badge="On Device" badgeVariant="green" />
+      <Divider />
+      <Row icon="cpu"      bg={C.tintTeal}   fg={C.iconTeal}   title="AI Processing"     sub="Topic queries sent to Groq AI"            badge="Groq API"  badgeVariant="gray" />
+      <Divider />
+      <Row icon="eye"      bg={C.tintBlue}   fg={C.iconBlue}   title="What We Collect"   sub="We do not collect any personal info"      badge="Zero Data" badgeVariant="green" />
+      <Divider />
+      <Row icon="bookmark" bg={C.tintPurple} fg={C.iconPurple} title="Saved Cheat Sheets" sub="Manage your saved sheets"                chevron />
+      <Divider />
+      <Row icon="trash"    bg={C.tintRed}    fg={C.iconRed}    title="Clear All Data"    sub="Permanently delete all saved cheat sheets" danger chevron />
+    </div>
+
+    {/* ── ABOUT ── */}
+    <Section label="About" />
+    <div style={{ background: C.surface, borderRadius: 14, margin: '0 12px', overflow: 'hidden', border: `1px solid ${C.border}` }}>
+      <Row icon="info" bg={C.tintAmber} fg={C.iconAmber} title="Cheatify"       sub="v1.0.0" chevron={false} />
+      <Divider />
+      <Row icon="star" bg={C.tintAmber} fg={C.iconAmber} title="Rate Cheatify"  sub="Enjoying the app? Leave us a review!" />
+    </div>
+
+    <div style={{ height: 32 }} />
+  </div>
+);
+
+/* ── root ─────────────────────────────────────────────────────── */
+function App() {
+  return (
+    <IOSDevice statusStyle="light">
+      <SettingsSheet />
+    </IOSDevice>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+<div id="root"></div>
+</body>
+</html>
